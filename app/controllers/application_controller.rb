@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
     before_action :authorized
    
+   
     def encode_token(payload)
       JWT.encode(payload, ENV["SKEY"])
     end
@@ -24,10 +25,13 @@ class ApplicationController < ActionController::API
       if decoded_token
         user_id = decoded_token[0]['user_id']
         @user = User.find_by(id: user_id)
+        return @user
+      else
+        nil
       end
     end
 
-  
+
     def logged_in?
       !!current_user
     end

@@ -57,7 +57,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -94,6 +94,20 @@ Rails.application.configure do
   # timestamps for the last write to the primary. The resolver uses the context
   # class timestamps to determine how long to wait before reading from the
   # replica.
+
+  config.action_mailer.delivery_method = :smtp
+  # host = 'localhost:3001'
+  # config.action_mailer.default_url_options = { :host => 'localhost:3001', protocol: 'http' }
+  config.action_mailer.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :user_name            => ENV["MAILU"],
+  :password             => ENV["MAILP"],
+  :authentication       => "plain",
+  :enable_starttls_auto => true
+}
+
+
   #
   # By default Rails will store a last write timestamp in the session. The
   # DatabaseSelector middleware is designed as such you can define your own

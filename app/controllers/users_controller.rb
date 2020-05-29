@@ -27,11 +27,18 @@ class UsersController < ApplicationController
         if @user.valid?
           @token = encode_token({ user_id: @user.id })
           # remove password from user below before rendering json
+          UserMailer.with(user: @user).welcome_email.deliver_now!
+     
           render json: { user: @user, jwt: @token, status: :created}
         else
           render json: { error: 'failed to create user', status: :not_acceptable}
         end
       end
+    end
+
+    def update
+      user = User.find(params['id']).update(user_params)
+      render json: user
     end
   
 

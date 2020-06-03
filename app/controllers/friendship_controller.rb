@@ -1,5 +1,6 @@
 class FriendshipController < ApplicationController
-
+    before_action :authorized
+    
     def index
         friendships = Friendship.all
         render json: friendships

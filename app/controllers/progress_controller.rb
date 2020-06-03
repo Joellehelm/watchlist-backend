@@ -1,4 +1,6 @@
 class ProgressController < ApplicationController
+    before_action :authorized
+    
     def index
         progresses = Progress.all
         render json: progresses

@@ -1,4 +1,5 @@
 class UserShowController < ApplicationController
+    before_action :authorized
 
     def index
         usershows = UserShow.all

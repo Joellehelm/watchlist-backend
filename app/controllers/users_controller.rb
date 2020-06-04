@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     def index
       @users = User.all
       if @users
-        render json: {users: @users}
+        render json: {users: serialize_user(@user)}
       else
         render json: {status: 500,errors: ['no users found']}
       end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def show
       @user = User.find(params[:id])
      if @user
-        render json: {user: @user}
+        render json: {user: serialize_user(@user)}
       else
         render json: {status: 500, errors: ['user not found']}
       end
@@ -26,11 +26,11 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
         if @user.valid?
           @token = encode_token({ user_id: @user.id })
-          user = UserSerializer.new(@user)
+         
           # remove password from user below before rendering json
-          UserMailer.with(user: user).welcome_email.deliver_now!
+          UserMailer.with(user: @user).welcome_email.deliver_now!
      
-          render json: { user: user, jwt: @token, status: :created}
+          render json: { user: serialize_user(@user), jwt: @token, status: :created}
         else
           render json: { error: 'failed to create user', status: :not_acceptable}
         end
@@ -39,11 +39,16 @@ class UsersController < ApplicationController
 
     def update
       user = User.find(params['id']).update(user_params)
-      render json: user
+      render json: serialize_user(user)
     end
   
 
   private
+
+    def serialize_user(user)
+      return UserSerializer.new(user)
+    end
+
     
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)

@@ -6,7 +6,7 @@ class UserShowController < ApplicationController
         render json: usershows
     end
 
-    def usershow
+    def show
         render json: UserShow.find(params['id'])
     end 
 

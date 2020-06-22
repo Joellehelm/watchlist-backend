@@ -5,6 +5,7 @@ class CreateShows < ActiveRecord::Migration[6.0]
       t.string :genre
       t.string :poster
       t.string :total_seasons
+      t.string :imdbID
       t.timestamps
     end
   end

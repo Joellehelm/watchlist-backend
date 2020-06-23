@@ -1,11 +1,12 @@
 class UserShowController < ApplicationController
+    before_action :authorized
 
     def index
         usershows = UserShow.all
         render json: usershows
     end
 
-    def usershow
+    def show
         render json: UserShow.find(params['id'])
     end 
 

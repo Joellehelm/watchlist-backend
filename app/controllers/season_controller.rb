@@ -1,5 +1,6 @@
 class SeasonController < ApplicationController
-
+    before_action :authorized
+    
     def index
         seasons = Season.all
         render json: seasons

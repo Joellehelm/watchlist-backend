@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_183531) do
     t.string "genre"
     t.string "poster"
     t.string "total_seasons"
+    t.string "imdbID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -11,6 +11,7 @@ class ShowsController < ApplicationController
     end 
 
     def create
+        Show.create_seasons()
         if Show.find_by(imdbID: params[:imdbID])
             show = Show.find_by(imdbID: params[:imdbID])
             UserShow.create(user_id: params[:user_id], show_id: show.id)

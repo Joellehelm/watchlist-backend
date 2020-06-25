@@ -16,8 +16,12 @@ ActiveRecord::Schema.define(version: 2020_05_08_183531) do
   enable_extension "plpgsql"
 
   create_table "episodes", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.integer "season_id"
+    t.string "released"
+    t.integer "episode_num"
+    t.integer "imdbRating"
+    t.string "imdbID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -39,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_183531) do
   end
 
   create_table "seasons", force: :cascade do |t|
-    t.string "season_number"
+    t.integer "season_number"
     t.integer "show_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

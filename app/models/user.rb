@@ -1,8 +1,8 @@
 class User < ApplicationRecord
     has_secure_password
-    has_many :user_shows
+    has_many :user_shows, dependent: :destroy
     has_many :shows, through: :user_shows
-    has_many :progresses
+    has_many :progresses, dependent: :destroy
 
     has_many :friendships, dependent: :destroy
     has_many :friends, through: :friendships
@@ -23,4 +23,7 @@ end
 def pending_friends
   friends.select{ |friend| !friend.friends.include?(self) }  
 end
+
+
+
 end

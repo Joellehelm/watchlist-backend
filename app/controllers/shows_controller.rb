@@ -23,6 +23,11 @@ class ShowsController < ApplicationController
         end
     end
 
+    def show_by_imdbID
+        show = Show.find_by(imdbID: params[:imdbID])
+        render json: show
+    end
+
     def destroy
         render json: Show.find(params['id']).destroy
     end
@@ -32,11 +37,10 @@ class ShowsController < ApplicationController
         render json: show
     end
 
-
     private
 
     def shows_params
-        params.require(:show).permit(:name, :poster, :genre, :total_seasons, :user_id, :imdbID)
+        params.require(:show).permit(:name, :poster, :genre, :total_seasons, :user_id, :imdbID, :movie_or_show, :year, :imdbRating, :plot, :awards, :actors)
     end
 
 

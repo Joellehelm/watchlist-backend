@@ -38,10 +38,13 @@ class UsersController < ApplicationController
     end
 
     def update
-      user = User.find(params['id']).update(user_params)
+      user = User.find(params[:id]).update(user_params)
       render json: serialize_user(user)
     end
   
+    def watchlist
+      render json: current_user().to_json(watchlist_serializer)
+    end
 
   private
 
@@ -52,6 +55,18 @@ class UsersController < ApplicationController
     
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
+
+    def watchlist_serializer
+      {
+        :only => [:id, :username, :email],
+
+        :include => {:shows => {
+            :include => {:seasons => {
+              :include => {:episodes => {}}
+            }}
+        }} 
+    }
     end
   
     

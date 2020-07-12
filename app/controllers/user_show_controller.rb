@@ -24,6 +24,7 @@ class UserShowController < ApplicationController
         render json: usershow
     end
 
+  
 
     private
 
@@ -32,8 +33,6 @@ class UserShowController < ApplicationController
     end
 
     def usershows_serializer
-        {
-          
-        }
+       
     end
 end

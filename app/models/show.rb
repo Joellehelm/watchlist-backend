@@ -3,8 +3,8 @@ require 'net/http'
 class Show < ApplicationRecord
     has_many :seasons, dependent: :destroy
     has_many :episodes, :through => :seasons
-    has_one :progress
-    has_many :user_shows
+    has_many :progresses, dependent: :destroy
+    has_many :user_shows, dependent: :destroy
     validates :imdbID, uniqueness: { case_sensitive: false }
    
 
@@ -22,7 +22,6 @@ class Show < ApplicationRecord
             res = Net::HTTP.start(url.host, url.port) {|http|
             http.request(req)
             }
-            # puts JSON(res.body)["Episodes"]
             JSON(res.body)["Episodes"].each_with_index do |episode, idx|
               
                 ep_num = idx + 1
@@ -30,14 +29,6 @@ class Show < ApplicationRecord
             end
         end 
 
-
-    # url = URI.parse("http://www.omdbapi.com/?apikey=22bc310a&i=tt0944947&Season=#{season_num}")
-    # req = Net::HTTP::Get.new(url.to_s)
-    # res = Net::HTTP.start(url.host, url.port) {|http|
-    #   http.request(req)
-    # }
-    # puts "================================="
-    # puts res.body
     end
 
 end

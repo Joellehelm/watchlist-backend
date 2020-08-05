@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
     
 
-def active_friends
+def current_friends
   friends.select{ |friend| friend.friends.include?(self) }  
 end
 

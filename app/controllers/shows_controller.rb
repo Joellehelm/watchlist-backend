@@ -7,7 +7,8 @@ class ShowsController < ApplicationController
     end
 
     def show
-        render json: Show.find(params['id']).to_json(shows_serializer)
+        show = Show.find_by(imdbID: params[:id])
+        render json: show
     end 
 
     def create
@@ -21,11 +22,6 @@ class ShowsController < ApplicationController
             Show.create_seasons(params[:total_seasons], params[:imdbID], new_show.id)
             render json: new_show
         end
-    end
-
-    def show_by_imdbID
-        show = Show.find_by(imdbID: params[:imdbID])
-        render json: show
     end
 
     def destroy

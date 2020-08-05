@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'auth#destroy'
   get '/auto_login', to: 'auth#auto_login'
   get '/watchlist', to: 'users#watchlist'
-  post '/get_progress', to: 'progresses#show'
-  post '/show_by_imdbID', to: 'shows#show_by_imdbID'
+  # post '/get_progress', to: 'progresses#show'
+  # post '/show_by_imdbID', to: 'shows#show'
+  
   
 end

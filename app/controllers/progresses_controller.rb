@@ -27,6 +27,13 @@ class ProgressesController < ApplicationController
         render json: progress
     end
 
+    def get_progress
+        show = Show.find_by(imdbID: params[:imdbID])
+        progress = Progress.where(:user_id => params[:user_id], :show_id => show.id).to_json(progress_serializer)
+     
+        render json: progress
+    end
+
 
     private
 

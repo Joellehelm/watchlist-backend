@@ -1,4 +1,4 @@
-class UserShowController < ApplicationController
+class UserShowsController < ApplicationController
     before_action :authorized
 
     def index

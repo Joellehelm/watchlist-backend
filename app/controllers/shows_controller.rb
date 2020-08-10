@@ -7,8 +7,12 @@ class ShowsController < ApplicationController
     end
 
     def show
+        user = current_user()
+       
         show = Show.find_by(imdbID: params[:id])
-        render json: show
+        user_show = user.user_shows.find_by(show_id: show.id)
+
+        render json: {show: show, user_show: user_show}
     end 
 
     def create

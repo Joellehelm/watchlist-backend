@@ -47,6 +47,17 @@ class UsersController < ApplicationController
       render json: current_user().to_json(watchlist_serializer)
     end
 
+    def show_in_watchlist
+      user = current_user()
+
+      if user.shows.find_by(imdbID: params[:imdbID])
+        render json: true
+      else
+        render json: false
+      end
+      
+    end
+
   private
     
     def user_params

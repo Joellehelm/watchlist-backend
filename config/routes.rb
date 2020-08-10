@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   resources :user_shows
 
   resources :users
-  # , only: [:create, :update, :watchlist]
+
   post '/login', to: 'auth#create'
   delete '/logout', to: 'auth#destroy'
   get '/auto_login', to: 'auth#auto_login'
   get '/watchlist', to: 'users#watchlist'
-  # post '/get_progress', to: 'progresses#show'
-  # post '/show_by_imdbID', to: 'shows#show'
+  post '/get_progress', to: 'progresses#get_progress'
+  post 'show_in_watchlist', to: 'users#show_in_watchlist'
+ 
   
   
 end

@@ -12,7 +12,7 @@ class ShowsController < ApplicationController
         show = Show.find_by(imdbID: params[:id])
         user_show = user.user_shows.find_by(show_id: show.id)
 
-        render json: {show: show, user_show: user_show}
+        render json: {show: ShowSerializer.new(show), user_show: user_show}
     end 
 
     def create
@@ -46,7 +46,9 @@ class ShowsController < ApplicationController
 
     def shows_serializer
         {
-          
+          :include => {:seasons => {
+              :include => {:episodes => {}}
+          }}
         }
     end
 end

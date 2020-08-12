@@ -11,7 +11,6 @@ class Show < ApplicationRecord
 
     def self.create_seasons(num_of_seasons, show_imdbID, show_id)
   
-  
         num_of_seasons.to_i.times do |i|
             season_n = i + 1
             new_season = Season.create(season_number: season_n, show_id: show_id )

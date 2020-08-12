@@ -2,9 +2,9 @@ class UsersController < ApplicationController
     skip_before_action :authorized, only: [:create]
    
     def index
-      @users = User.all
-      if @users
-        render json: {users: serialize_user(@user)}
+      users = User.all
+      if users
+        render json: {users: serialize_user(user)}
       else
         render json: {status: 500,errors: ['no users found']}
       end
@@ -12,9 +12,9 @@ class UsersController < ApplicationController
   
   
   def show
-      @user = User.find(params[:id])
-     if @user
-        render json: {user: serialize_user(@user)}
+      user = User.find(params[:id])
+     if user
+        render json: {user: serialize_user(user)}
       else
         render json: {status: 500, errors: ['user not found']}
       end
@@ -23,14 +23,14 @@ class UsersController < ApplicationController
 
     def create
       if params[:password] == params[:password_confirmation]
-        @user = User.create(user_params)
-        if @user.valid?
-          @token = encode_token({ user_id: @user.id })
+        user = User.create(user_params)
+        if user.valid?
+          token = encode_token({ user_id: user.id })
          
           # remove password from user below before rendering json
-          UserMailer.with(user: @user).welcome_email.deliver_now!
+          UserMailer.with(user: user).welcome_email.deliver_now!
      
-          render json: { user: serialize_user(@user), jwt: @token, status: :created}
+          render json: { user: serialize_user(user), jwt: token, status: :created}
         else
           render json: { error: 'failed to create user', status: :not_acceptable}
         end
@@ -38,20 +38,42 @@ class UsersController < ApplicationController
     end
 
     def update
-      user = User.find(params['id']).update(user_params)
-      render json: serialize_user(user)
+      user = User.find(params[:id])
+      user.update(user_params)
+      render json: user
     end
   
-
-  private
-
-    def serialize_user(user)
-      return UserSerializer.new(user)
+    def watchlist
+      render json: current_user().to_json(watchlist_serializer)
     end
 
+    def show_in_watchlist
+      user = current_user()
+
+      if user.shows.find_by(imdbID: params[:imdbID])
+        render json: true
+      else
+        render json: false
+      end
+      
+    end
+
+  private
     
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
+
+    def watchlist_serializer
+      {
+        :only => [:id, :username, :email],
+
+        :include => {:shows => {
+            :include => {:seasons => {
+              :include => {:episodes => {}}
+            }}
+        }} 
+    }
     end
   
     

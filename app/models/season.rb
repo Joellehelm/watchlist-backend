@@ -1,4 +1,4 @@
 class Season < ApplicationRecord
-    belongs_to :show, dependent: :destroy
-    has_many :episodes
+    belongs_to :show
+    has_many :episodes, dependent: :destroy
 end

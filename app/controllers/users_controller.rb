@@ -38,9 +38,14 @@ class UsersController < ApplicationController
     end
 
     def update
-      user = User.find(params[:id])
-      user.update(user_params)
-      render json: user
+      user = current_user()
+
+      if user.authenticate(params[:password_confirmation])
+        user.update(user_params)
+        render json: {user: user, updated: true}
+      else
+        render json: {user: user, updated: false}
+      end
     end
   
     def watchlist

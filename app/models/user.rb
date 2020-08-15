@@ -25,6 +25,10 @@ def pending_friends
   friends.select{ |friend| !friend.friends.include?(self) }  
 end
 
+def amount_of_shows_watching
+  self.shows.count
+end
+
 
 
 end

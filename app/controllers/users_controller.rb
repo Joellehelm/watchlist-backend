@@ -40,10 +40,21 @@ class UsersController < ApplicationController
     def update
       user = current_user()
 
-      if user.authenticate(params[:password_confirmation])
+      if user.authenticate(params[:password])
         user.update(user_params)
         render json: {user: user, updated: true}
       else
+        render json: {user: user, updated: false}
+      end
+    end
+
+    def update_password
+      user = current_user()
+
+      if user.authenticate(params[:user][:password])
+        user.update(password: params[:user][:new_password])
+        render json: {user: user, updated: true}
+      else 
         render json: {user: user, updated: false}
       end
     end

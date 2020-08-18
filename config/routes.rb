@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/watchlist', to: 'users#watchlist'
   post '/get_progress', to: 'progresses#get_progress'
   post 'show_in_watchlist', to: 'users#show_in_watchlist'
- 
+  patch 'update_password', to: 'users#update_password'
   
   
 end

@@ -31,6 +31,7 @@ class FriendshipController < ApplicationController
         params.require(:friendship).permit(:receiver_id, :sender_id)
     end
 
+    
     def friendship_serializer
         {
           

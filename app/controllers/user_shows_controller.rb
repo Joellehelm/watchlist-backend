@@ -1,4 +1,4 @@
-class UserShowController < ApplicationController
+class UserShowsController < ApplicationController
     before_action :authorized
 
     def index
@@ -6,7 +6,7 @@ class UserShowController < ApplicationController
         render json: usershows
     end
 
-    def usershow
+    def show
         render json: UserShow.find(params['id'])
     end 
 
@@ -24,6 +24,7 @@ class UserShowController < ApplicationController
         render json: usershow
     end
 
+  
 
     private
 
@@ -32,8 +33,6 @@ class UserShowController < ApplicationController
     end
 
     def usershows_serializer
-        {
-          
-        }
+       
     end
 end

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       if users
         render json: {users: serialize_user(user)}
       else
-        render json: {status: 500,errors: ['no users found']}
+        render json: {status: 500, errors: ['no users found']}
       end
   end
   
@@ -28,11 +28,11 @@ class UsersController < ApplicationController
           token = encode_token({ user_id: user.id })
          
           # remove password from user below before rendering json
-          UserMailer.with(user: user).welcome_email.deliver_now!
+          # UserMailer.with(user: user).welcome_email.deliver_now!
      
-          render json: { user: serialize_user(user), jwt: token, status: :created}
+          render json: { user: UserSerializer.new(user), jwt: token, status: :created}
         else
-          render json: { error: 'failed to create user', status: :not_acceptable}
+          render json: { error: user.errors, status: :not_acceptable}
         end
       end
     end

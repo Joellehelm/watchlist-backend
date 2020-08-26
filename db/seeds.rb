@@ -22,7 +22,3 @@
 # friend = Friendship.create(user_id: 1, friend_id: 2)
 
 
-
-s = Show.first
-u = User.first
-us = UserShow.create(show: s, user: u)

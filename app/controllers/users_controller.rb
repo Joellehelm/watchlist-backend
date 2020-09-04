@@ -26,9 +26,8 @@ class UsersController < ApplicationController
         user = User.create(user_params)
         if user.valid?
           token = encode_token({ user_id: user.id })
-         
-          # remove password from user below before rendering json
-          # UserMailer.with(user: user).welcome_email.deliver_now!
+        
+          UserMailer.with(user: UserSerializer.new(user)).welcome_email.deliver_now!
      
           render json: { user: UserSerializer.new(user), jwt: token, status: :created}
         else

@@ -7,7 +7,7 @@ class UserShowsController < ApplicationController
     end
 
     def show
-        render json: UserShow.find(params['id'])
+        render json: UserShow.find(params[:id])
     end 
 
     def create
@@ -16,11 +16,11 @@ class UserShowsController < ApplicationController
     end
 
     def destroy
-        render json: UserShow.find(params['id']).destroy
+        render json: UserShow.find(params[:id]).destroy
     end
 
     def update
-        usershow = UserShow.find(params['id']).update(usershows_params)
+        usershow = UserShow.find(params[:id]).update(usershows_params)
         render json: usershow
     end
 

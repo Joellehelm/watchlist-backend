@@ -16,10 +16,13 @@ class ShowsController < ApplicationController
     end 
 
     def create
+        user = current_user()
         if Show.find_by(imdbID: params[:imdbID])
             show = Show.find_by(imdbID: params[:imdbID])
-            UserShow.create(user_id: params[:user_id], show_id: show.id)
-            render json: show
+            if !user.shows.include?(show)
+                UserShow.create(user_id: params[:user_id], show_id: show.id)
+                render json: show
+            end
         else
             new_show = Show.create(shows_params)
             UserShow.create(user_id: params[:user_id], show_id: new_show.id)

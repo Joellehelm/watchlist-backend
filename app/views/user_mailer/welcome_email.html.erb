@@ -3,16 +3,19 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="welcome_email.css">
   </head>
   <body>
+  <div class="main">
     <h1>Welcome to X-Mark!</h1>
     <p>
-      You have successfully signed up to x-mark.com,
-      your username is: <%= @user.username %>.<br>
+      You have successfully signed up to X-Mark!,
+      Your username is: <%= @user.username %>.<br>
     </p>
     <p>
-      To login to the site, just follow this link: <%= %>.
+      To login to the site, just follow this link: <a href="https://x-mark.netlify.app/">X-Mark</a>.
     </p>
     <p>Thanks for joining and have a great day!</p>
+    </div>
   </body>
 </html>

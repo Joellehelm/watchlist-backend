@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         if user.valid?
           token = encode_token({ user_id: user.id })
         
-          UserMailer.with(user: UserSerializer.new(user)).welcome_email.deliver_now!
+          UserMailer.with(user: user).welcome_email.deliver_now!
      
           render json: { user: UserSerializer.new(user), jwt: token, status: :created}
         else

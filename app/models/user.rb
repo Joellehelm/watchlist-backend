@@ -13,7 +13,7 @@ class User < ApplicationRecord
     has_many :received_friends, through: :received_friendships, source: 'User'
     
     validates :username, :email, uniqueness: { case_sensitive: false }
-  
+   
 
     
 

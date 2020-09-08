@@ -17,7 +17,7 @@
      </style>
   </head>
   <body style="font-family: Roboto; height: 100vh;">
-  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2rem; border-radius: .3rem; background-color: whitesmoke; height: 50rem; width: 50rem; box-shadow: 0.125rem 0.125rem 0.375rem 0.0925rem rgba(0, 0, 0, 0.651);">
+  <div style="margin: 2rem; border-radius: .3rem; background-color: whitesmoke; height: 50rem; width: 50rem; box-shadow: 0.125rem 0.125rem 0.375rem 0.0925rem rgba(0, 0, 0, 0.651);">
 
 
     <div style="display: grid; grid-template-columns: 1fr 1fr;">
@@ -26,26 +26,25 @@
           <%= image_tag attachments['logo.jpg'].url %>
         </div>
    
-   
-
-    <div style="display: flex; align-items: center; justify-content: center; ">
-    <p style="font-size: 2.7rem; font-family: Julee; margin-left: -.3rem;">-Mark</p>
+      <div style="display: flex; align-items: center; justify-content: center; ">
+        <p style="font-size: 2.7rem; font-family: Julee; margin-left: -.3rem;">-Mark</p>
+      </div>
     </div>
-    </div>
-
-
 
     <p style="font-size: 1.5rem; color: rgb(94, 94, 94);">
       Welcome! You have successfully signed up to X-Mark!
     </p>
+
   <div style="display: grid; grid-template-columns: 2fr 1fr;">
     <div><p style="font-size: 1.5rem;">Your username is:</p></div>
     <div style="display: flex; align-items: center; justify-content: center;"><p style="color: crimson; font-size: 1.5rem;"> <%= @user.username %></p></div>
   </div>
+
     <p>
       To login to the site, just follow this link: <a style="color: crimson;" href="https://x-mark.netlify.app/">X-Mark</a>.
     </p>
+
     <p>Thanks for joining and have a great day!</p>
-    </div>
+  </div>
   </body>
 </html>

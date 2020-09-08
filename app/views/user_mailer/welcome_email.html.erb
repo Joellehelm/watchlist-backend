@@ -7,33 +7,44 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet">
-  
+     <style type="text/css">
+      
+        .email-logo img {
+          height: 6rem;
+          width: 6rem;
+        }
+       
+     </style>
   </head>
   <body style="font-family: Roboto; height: 100vh; overflow: hidden;">
-  <div style="display: flex; flex-flow: row; align-items: center; justify-content: center; margin: 2rem; border-radius: .3rem; background-color: whitesmoke; height: 50rem; box-shadow: 0.125rem 0.125rem 0.375rem 0.0925rem rgba(0, 0, 0, 0.651);">
+  <div style="display: flex; flex-flow: column; align-items: center; justify-content: center; margin: 2rem; border-radius: .3rem; background-color: whitesmoke; height: 50rem; box-shadow: 0.125rem 0.125rem 0.375rem 0.0925rem rgba(0, 0, 0, 0.651);">
 
-  <div style="height: 100%; display: flex; align-items: center; justify-content: center; ">
-        <p style="font-size: 4rem; font-family: Julee; color: crimson; margin-left: -.3rem;">X-Mark</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr;">
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="email-logo">
+          <%= image_tag attachments['logo.jpg'].url %>
+        </div>
       </div>
-
    
+
+    <div style="display: flex; align-items: center; justify-content: center; ">
+    <p style="font-size: 2.7rem; font-family: Julee; margin-left: -.3rem;">-Mark</p>
+    </div>
+    </div>
+
+
+
     <p style="font-size: 1.5rem; color: rgb(94, 94, 94);">
       Welcome! You have successfully signed up to X-Mark!
     </p>
-
   <div style="display: grid; grid-template-columns: 2fr 1fr;">
     <div><p style="font-size: 1.5rem;">Your username is:</p></div>
-
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <p style="color: crimson; font-size: 1.5rem;"> 
-        <%= @user.username %></p>
+    <div style="display: flex; align-items: center; justify-content: center;"><p style="color: crimson; font-size: 1.5rem;"> <%= @user.username %></p></div>
     </div>
-  </div>
-
-    <p>
+    <p >
       To login to the site, just follow this link: <a style="color: crimson;" href="https://x-mark.netlify.app/">X-Mark</a>.
     </p>
-
     <p>Thanks for joining and have a great day!</p>
     </div>
   </body>

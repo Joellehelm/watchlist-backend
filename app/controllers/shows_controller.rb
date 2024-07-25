@@ -17,18 +17,15 @@ class ShowsController < ApplicationController
 
   def create
     user = current_user
+    imdb_show = Show.find_by(imdbID: shows_params[:imdbID])
 
-    if Show.find_by(imdbID: params[:imdbID])
-      show = Show.find_by(imdbID: params[:imdbID])
-      if !user.shows.include?(show)
-        UserShow.create(user_id: user.id, show_id: show.id)
-        render json: show
-      end
-    else
-      new_show = Show.create(shows_params)
-      Show.create_seasons(params[:total_seasons], params[:imdbID], new_show.id)
-      render json: new_show
+    show = imdb_show ? imdb_show : create_new_show
+
+    if !user.shows.include?(show)
+      UserShow.create(user_id: user.id, show_id: show.id)
     end
+
+    render json: show
   end
 
   def destroy
@@ -41,6 +38,12 @@ class ShowsController < ApplicationController
   end
 
   private
+
+  def create_new_show
+    new_show = Show.create(shows_params)
+    Show.create_seasons(shows_params[:total_seasons], shows_params[:imdbID], new_show.id)
+    new_show
+  end
 
   def shows_params
     params.require(:show).permit(:name, :poster, :genre, :total_seasons, :imdbID, :movie_or_show, :year, :imdbRating, :plot, :awards, :actors)

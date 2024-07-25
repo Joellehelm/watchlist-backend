@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   resources :shows
-  resources :episodes
-  resources :seasons
   resources :progresses
   resources :user_shows
 

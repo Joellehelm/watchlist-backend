@@ -44,13 +44,15 @@ RSpec.describe ShowsController, type: :controller do
   end
 
   describe "CREATE show" do
-    it "Creates a show" do
+    it "Creates a show and adds it to watchlist" do
       expect(Show.count).to eq(2)
+      expect(UserShow.count).to eq(0)
       request_headers(@token)
       post :create, :params => { show: { imdbID: '34lsladfj3234', name: 'Something' } }
       parsed_response = JSON.parse(response.body)
 
       expect(parsed_response["name"]).to eq("Something")
+      expect(UserShow.count).to eq(1)
       expect(Show.count).to eq(3)
       expect(response.status).to eq(200)
     end
@@ -60,7 +62,7 @@ RSpec.describe ShowsController, type: :controller do
       expect(UserShow.count).to eq(0)
 
       request_headers(@token)
-      post :create, :params => { imdbID: show.imdbID }
+      post :create, :params => { show: { imdbID: show.imdbID } }
       parsed_response = JSON.parse(response.body)
 
       expect(Show.count).to eq(2)

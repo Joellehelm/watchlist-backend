@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe ShowsController, type: :controller do
   let!(:show) { FactoryBot.create(:show) }
   let!(:show2) { FactoryBot.create(:show, name: 'Cobra Kai', imdbID: 'tt7221388') }
@@ -9,7 +11,7 @@ RSpec.describe ShowsController, type: :controller do
 
   describe "GET index" do
     it "Returns all shows" do
-      request_headers
+      request_headers(@token)
       get :index
       parsed_response = JSON.parse(response.body)
 
@@ -30,7 +32,7 @@ RSpec.describe ShowsController, type: :controller do
     end
 
     it "Returns a show and the joined user_show for the current user" do
-      request_headers
+      request_headers(@token)
       get :show, :params => { id: show.imdbID }
       parsed_response = JSON.parse(response.body)
 
@@ -44,7 +46,7 @@ RSpec.describe ShowsController, type: :controller do
   describe "CREATE show" do
     it "Creates a show" do
       expect(Show.count).to eq(2)
-      request_headers
+      request_headers(@token)
       post :create, :params => { show: { imdbID: '34lsladfj3234', name: 'Something' } }
       parsed_response = JSON.parse(response.body)
 
@@ -57,7 +59,7 @@ RSpec.describe ShowsController, type: :controller do
       expect(Show.count).to eq(2)
       expect(UserShow.count).to eq(0)
 
-      request_headers
+      request_headers(@token)
       post :create, :params => { imdbID: show.imdbID }
       parsed_response = JSON.parse(response.body)
 
@@ -70,7 +72,7 @@ RSpec.describe ShowsController, type: :controller do
   describe "DESTROY show" do
     it "Deletes a show" do
       expect(Show.count).to eq(2)
-      request_headers
+      request_headers(@token)
       delete :destroy, :params => { id: show2.id }
 
       expect(response.status).to eq(200)
@@ -82,19 +84,11 @@ RSpec.describe ShowsController, type: :controller do
     it "Updates a show" do
       expect(show.name).to eq('Doctor Who')
 
-      request_headers
+      request_headers(@token)
       patch :update, params: { id: show.id, show: { name: 'Updated Name' } }
 
       expect(show.reload.name).to eq('Updated Name')
       expect(response.status).to eq(200)
     end
-  end
-
-  def user_login(user)
-    JWT.encode({ user_id: user.id }, ENV["SKEY"])
-  end
-
-  def request_headers
-    request.headers["Authorization"] = "JWT #{@token}"
   end
 end

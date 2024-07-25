@@ -8,7 +8,7 @@ class FriendshipController < ApplicationController
 
     def friendship
         render json: Friendship.find(params['id'])
-    end 
+    end
 
     def create
         new_friendship = Friendship.create(friendship_params)

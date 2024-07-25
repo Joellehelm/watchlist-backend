@@ -8,7 +8,7 @@ class SeasonController < ApplicationController
 
     def Season
         render json: Season.find(params['id'])
-    end 
+    end
 
     def create
         new_season = Season.create(seasons_params)

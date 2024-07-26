@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     end
 
     def update
-      user = current_user()
+      user = current_user
 
       if user.authenticate(params[:password])
         user.update(user_params)
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     end
 
     def update_password
-      user = current_user()
+      user = current_user
 
       if user.authenticate(params[:user][:password])
         user.update(password: params[:user][:new_password])
@@ -59,18 +59,17 @@ class UsersController < ApplicationController
     end
   
     def watchlist
-      render json: current_user().to_json(watchlist_serializer)
+      render json: current_user.to_json(watchlist_serializer)
     end
 
     def show_in_watchlist
-      user = current_user()
+      user = current_user
 
       if user.shows.find_by(imdbID: params[:imdbID])
         render json: true
       else
         render json: false
       end
-      
     end
 
   private

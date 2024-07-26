@@ -6,7 +6,6 @@ class Show < ApplicationRecord
     has_many :progresses, dependent: :destroy
     has_many :user_shows, dependent: :destroy
     validates :imdbID, uniqueness: { case_sensitive: false }
-   
 
 
     def self.create_seasons(num_of_seasons, show_imdbID, show_id)

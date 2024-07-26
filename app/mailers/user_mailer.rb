@@ -7,7 +7,5 @@ class UserMailer < ApplicationMailer
             mime_type: 'image/jpg'
           }
         mail(to: @user.email, subject: "Welcome to X-Mark!")
-        
-      
     end
 end

@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   resources :shows
-  resources :episodes
-  resources :seasons
   resources :progresses
-  resources :user_shows
+  resources :user_shows, only: [:destroy]
 
   resources :users
 
@@ -14,6 +12,4 @@ Rails.application.routes.draw do
   post '/get_progress', to: 'progresses#get_progress'
   post 'show_in_watchlist', to: 'users#show_in_watchlist'
   patch 'update_password', to: 'users#update_password'
-  
-  
 end

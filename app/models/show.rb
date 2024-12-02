@@ -26,7 +26,6 @@ class Show < ApplicationRecord
                 Episode.create(season_id: new_season.id, episode_num: ep_num, title: episode["Title"], released: episode["Released"], imdbRating: episode["imdbRating"], imdbID: episode["imdbID"])
             end
         end 
-
     end
 
 end

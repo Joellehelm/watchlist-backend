@@ -28,6 +28,8 @@ class ShowsController < ApplicationController
     render json: show
   end
 
+  # TODO: Remove destroy and update if unused, switch to strong params if used.
+
   def destroy
     render json: Show.find(params['id']).destroy
   end
@@ -35,6 +37,21 @@ class ShowsController < ApplicationController
   def update
     show = Show.find(params['id']).update(shows_params)
     render json: show
+  end
+
+  # TODO: Implement response message. Display something when job finishes.
+  def update_show_info
+    show = Show.find(show_info_params[:id])
+    update_show_job = UpdateShowJob.new(show, show_info_params[:update_type])
+    update_show_job.perform_now
+    render json: { job_status: 'job started placeholder' }
+  end
+
+  def update_season
+    season = Season.find_by(show_id: season_params[:show_id], season_number: season_params[:season_number])
+    update_show_job = UpdateShowJob.new(season.show, season_params[:update_type], season)
+    update_show_job.perform_now
+    render json: { job_status: 'job started placeholder' }
   end
 
   private
@@ -49,6 +66,13 @@ class ShowsController < ApplicationController
     params.require(:show).permit(:name, :poster, :genre, :total_seasons, :imdbID, :movie_or_show, :year, :imdbRating, :plot, :awards, :actors)
   end
 
+  def show_info_params
+    params.require(:show).permit(:id, :update_type)
+  end
+
+  def season_params
+    params.require(:season).permit(:season_number, :show_id, :update_type)
+  end
 
   def shows_serializer
     {

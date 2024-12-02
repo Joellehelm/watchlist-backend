@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   post '/get_progress', to: 'progresses#get_progress'
   post 'show_in_watchlist', to: 'users#show_in_watchlist'
   patch 'update_password', to: 'users#update_password'
+  post '/update_show_info', to: 'shows#update_show_info'
+  post '/update_season', to: 'shows#update_season'
 end
